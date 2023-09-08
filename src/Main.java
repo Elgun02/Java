@@ -10,7 +10,6 @@ public class Main {
         pensioner.printInfo();
         pensioner.die();
 
-        Worker work = new Worker();
         Worker work1 = new Worker("www", 18, 200, 200);
 
     }
