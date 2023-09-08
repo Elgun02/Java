@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class Worker extends Person{
+public class Worker extends Person implements AbleToCalculatePension{
     private int minSalary;
     private int maxSalary;
     public Worker(String name, int age, int growth, double weight, int minSalary, int maxSalary) {
@@ -11,6 +11,8 @@ public class Worker extends Person{
 
     public Worker(String name, int age, int minSalary, int maxSalary) {
         super(name, age, minSalary, maxSalary);
+        this.minSalary = minSalary;
+        this.maxSalary = maxSalary;
     }
 
     public Worker(){
@@ -24,6 +26,11 @@ public class Worker extends Person{
     @Override
     public void die(int years) {
         System.out.println("Этот человек не доживет до пенсии и умрет через " + years + " лет");
+    }
+
+    @Override
+    public double calculatePension() {
+        return (CalculatorUtils.calculateAverage(minSalary, maxSalary)) * 0.25;
     }
 
     public int getMinSalary() {
