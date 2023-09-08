@@ -9,7 +9,6 @@ public class Main {
         fundInfo.info();
         pensioner.printInfo();
         pensioner.die();
-        System.out.println(fundInfo.toString());
 
         Worker work = new Worker();
         Worker work1 = new Worker("www", 18, 200, 200);
