@@ -30,7 +30,15 @@ public class Worker extends Person implements AbleToCalculatePension{
 
     @Override
     public double calculatePension() {
-        return (CalculatorUtils.calculateAverage(minSalary, maxSalary)) * 0.25;
+        if (getGender() == Gender.MALE) {
+            return (CalculatorUtils.calculateAverage(minSalary, maxSalary)) * 0.25;
+        }
+        else if (getGender() == Gender.FEMALE) {
+            return (CalculatorUtils.calculateAverage(minSalary / 2, maxSalary * 2)) * 0.25;
+        }
+        else {
+            return 0;
+        }
     }
 
     public int getMinSalary() {

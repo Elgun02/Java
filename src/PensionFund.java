@@ -25,6 +25,16 @@ public class PensionFund {
         }
     }
 
+    public double calculatePensionFor(AbleToCalculatePension obj) {
+        if (state) {
+            return obj.calculatePension();
+        }
+        else {
+            System.out.println("деньги из фонда украли");
+            return 0;
+        }
+    }
+
     public String getFundName() {
         return fundName;
     }
