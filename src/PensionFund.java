@@ -1,16 +1,19 @@
+import java.util.List;
 import java.util.Objects;
 
 public class PensionFund {
     private String fundName;
     private boolean state;
-    private final String dateOfCreation;
-    private int members;
+    private String dateOfCreation;
+    private List<Worker> membersList;
 
-    public PensionFund(String fundName, boolean state, String dateOfCreation, int members) {
+    public PensionFund(String fundName, boolean state, String dateOfCreation) {
         this.fundName = fundName;
         this.state = state;
         this.dateOfCreation = dateOfCreation;
-        this.members = members;
+    }
+
+    public PensionFund() {
     }
 
     public void info() {
@@ -19,20 +22,30 @@ public class PensionFund {
         System.out.println("Date of creation: " + dateOfCreation);
 
         if (state) {
-            System.out.println("Number of members: " + members/1000 + " THOUSAND");
-        }else {
-            System.out.println("Number of members: " + members);
+            System.out.println("Number of members: " + membersList.size() / 1000 + " THOUSAND");
+        } else {
+            System.out.println("Number of members: " + membersList.size());
         }
     }
 
     public double calculatePensionFor(AbleToCalculatePension obj) {
         if (state) {
             return obj.calculatePension();
-        }
-        else {
+        } else {
             System.out.println("деньги из фонда украли");
             return 0;
         }
+    }
+
+    public double calculateMedianPension() {
+        if (membersList == null) {
+            return 0;
+        }
+        double sum = 0.0;
+        for (Worker worker : membersList) {
+            sum += worker.calculatePension();
+        }
+        return sum / membersList.size();
     }
 
     public String getFundName() {
@@ -55,12 +68,12 @@ public class PensionFund {
         return dateOfCreation;
     }
 
-    public int getMembers() {
-        return members;
+    public List<Worker> getMembersList() {
+        return membersList;
     }
 
-    public void setMembers(int members) {
-        this.members = members;
+    public void setMembersList(List<Worker> membersList) {
+        this.membersList = membersList;
     }
 
     @Override
@@ -68,12 +81,12 @@ public class PensionFund {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PensionFund that = (PensionFund) o;
-        return state == that.state && members == that.members && Objects.equals(fundName, that.fundName) && Objects.equals(dateOfCreation, that.dateOfCreation);
+        return state == that.state && Objects.equals(fundName, that.fundName) && Objects.equals(dateOfCreation, that.dateOfCreation) && Objects.equals(membersList, that.membersList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fundName, state, dateOfCreation, members);
+        return Objects.hash(fundName, state, dateOfCreation, membersList);
     }
 
     @Override
@@ -82,7 +95,7 @@ public class PensionFund {
                 "fundName='" + fundName + '\'' +
                 ", state=" + state +
                 ", dateOfCreation='" + dateOfCreation + '\'' +
-                ", members=" + members +
+                ", membersList=" + membersList +
                 '}';
     }
 }
