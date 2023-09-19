@@ -11,6 +11,7 @@ public class PensionFund {
         this.fundName = fundName;
         this.state = state;
         this.dateOfCreation = dateOfCreation;
+
     }
 
     public PensionFund() {
@@ -21,11 +22,12 @@ public class PensionFund {
         System.out.println("Fund Name: " + fundName);
         System.out.println("Date of creation: " + dateOfCreation);
 
-        if (state) {
-            System.out.println("Number of members: " + membersList.size() / 1000 + " THOUSAND");
-        } else {
-            System.out.println("Number of members: " + membersList.size());
-        }
+        int value = 1000;
+        if (membersList == null) {
+            System.out.println("Number of members: " + 0);
+        } else if (state && membersList.size() >= value){
+            System.out.println("Number of members: " + membersList.size() / value + " THOUSAND");
+        } else System.out.println("Number of members: " + membersList.size());
     }
 
     public double calculatePensionFor(AbleToCalculatePension obj) {

@@ -4,9 +4,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        PensionFund pensionFund = new PensionFund();
+        PensionFund pensionFund = new PensionFund("Finland Pension Fund", true, "1892");
         List<Worker> membersList = new ArrayList<>();
-        List<Worker> list = new LinkedList<>();
 
         Worker anna = new Worker("Anna", 19, 178, 62, 1000, 6000);
         Worker albert = new Worker("Albert", 20, 188, 82, 1000, 5000);
@@ -20,14 +19,8 @@ public class Main {
         membersList.add(albert);
         membersList.add(johan);
 
-        list.add(anna);
-        list.add(albert);
-        list.add(johan);
-
         pensionFund.setMembersList(membersList);
-        System.out.println(pensionFund.calculateMedianPension());
-        pensionFund.setMembersList(list);
-        System.out.println(pensionFund.calculateMedianPension());
-
+        pensionFund.info();
+        System.out.println("Average pension value: " + (int)pensionFund.calculateMedianPension() + "$");
     }
 }
