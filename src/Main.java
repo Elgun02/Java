@@ -1,7 +1,8 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.*;
+
+import static java.time.LocalDate.now;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,6 +10,17 @@ public class Main {
         Worker anna = new Worker("Anna", 19, 178, 62, 1000, 6000);
         List<Worker> membersList = new ArrayList<>();
         Set<Profession> professions = new HashSet<>();
+        Map<DayOfWeek, Boolean> workDays = new HashMap<>();
+
+        workDays.put(DayOfWeek.MONDAY, true);
+        workDays.put(DayOfWeek.TUESDAY, true);
+        workDays.put(DayOfWeek.WEDNESDAY, true);
+        workDays.put(DayOfWeek.THURSDAY, true);
+        workDays.put(DayOfWeek.FRIDAY, true);
+        workDays.put(DayOfWeek.SATURDAY, false);
+        workDays.put(DayOfWeek.SUNDAY, false);
+
+        pensionFund.setWorkDays(workDays);
 
         professions.add(Profession.PROGRAMMER);
         professions.add(Profession.DOCTOR);
@@ -23,13 +35,7 @@ public class Main {
         pensionFund.setMembersList(membersList);
 
         pensionFund.info();
-        System.out.println();
-        System.out.println("Anna's salary + bonus = " + anna.calculatePension() + "$");
-
-
-
-
-
+        System.out.println(pensionFund.calculatePensionFor(anna));
 
     }
 }

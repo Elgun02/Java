@@ -1,11 +1,17 @@
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+
+import static java.time.LocalDate.now;
 
 public class PensionFund {
     private String fundName;
     private boolean state;
-    private String dateOfCreation;
+    private final String dateOfCreation;
     private List<Worker> membersList;
+    private Map<DayOfWeek, Boolean> workDays;
 
     public PensionFund(String fundName, boolean state, String dateOfCreation) {
         this.fundName = fundName;
@@ -14,10 +20,14 @@ public class PensionFund {
 
     }
 
-    public PensionFund() {
-    }
-
     public void info() {
+        if (isWorkDay(LocalDate.now().getDayOfWeek())) {
+            System.out.println("Pension Fund OPENED.");
+        }
+        else {
+            System.out.println("Pension Fund CLOSED.");
+        }
+
         System.out.println();
         System.out.println("Fund Name: " + fundName);
         System.out.println("Date of creation: " + dateOfCreation);
@@ -31,12 +41,24 @@ public class PensionFund {
     }
 
     public double calculatePensionFor(AbleToCalculatePension obj) {
-        if (state) {
-            return obj.calculatePension();
+        if (isWorkDay(LocalDate.now().getDayOfWeek())) {
+            if (state) {
+                System.out.print("The pension is equal to: ");
+                return obj.calculatePension();
+            } else {
+                System.out.println("Money was stolen from the fund.");
+                System.out.print("The pension is equal to: ");
+                return 0;
+            }
         } else {
-            System.out.println("деньги из фонда украли");
+            System.out.println("Pension Fund is not working today.");
+            System.out.print("The pension is equal to: ");
             return 0;
         }
+    }
+
+    public boolean isWorkDay(DayOfWeek dayOfWeek) {
+        return workDays.getOrDefault(dayOfWeek, false);
     }
 
     public double calculateMedianPension() {
@@ -76,6 +98,14 @@ public class PensionFund {
 
     public void setMembersList(List<Worker> membersList) {
         this.membersList = membersList;
+    }
+
+    public Map<DayOfWeek, Boolean> getWorkDays() {
+        return workDays;
+    }
+
+    public void setWorkDays(Map<DayOfWeek, Boolean> workDays) {
+        this.workDays = workDays;
     }
 
     @Override
