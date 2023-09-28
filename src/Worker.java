@@ -1,8 +1,10 @@
 import java.util.Objects;
+import java.util.Set;
 
 public class Worker extends Person implements AbleToCalculatePension{
     private int minSalary;
     private int maxSalary;
+    private Set<Profession> profession;
     public Worker(String name, int age, int growth, double weight, int minSalary, int maxSalary) {
         super(name, age, growth, weight);
         this.minSalary = minSalary;
@@ -30,15 +32,19 @@ public class Worker extends Person implements AbleToCalculatePension{
 
     @Override
     public double calculatePension() {
+        double pension;
+        int i = profession.size() / 3;
         if (getGender() == Gender.MALE) {
-            return (CalculatorUtils.calculateAverage(minSalary, maxSalary)) * 0.25;
+            pension = (CalculatorUtils.calculateAverage(minSalary, maxSalary)) * 0.25;
         }
         else if (getGender() == Gender.FEMALE) {
-            return (CalculatorUtils.calculateAverage(minSalary / 2, maxSalary * 2)) * 0.25;
+            pension = (CalculatorUtils.calculateAverage(minSalary / 2, maxSalary * 2)) * 0.25;
         }
         else {
-            return 0;
+            pension = 0;
         }
+
+    return (pension * (i * 0.05)) + pension;
     }
 
     public int getMinSalary() {
@@ -55,6 +61,14 @@ public class Worker extends Person implements AbleToCalculatePension{
 
     public void setMaxSalary(int maxSalary) {
         this.maxSalary = maxSalary;
+    }
+
+    public Set<Profession> getProfession() {
+        return profession;
+    }
+
+    public void setProfession(Set<Profession> profession) {
+        this.profession = profession;
     }
 
     @Override

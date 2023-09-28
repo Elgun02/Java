@@ -1,26 +1,35 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
         PensionFund pensionFund = new PensionFund("Finland Pension Fund", true, "1892");
-        List<Worker> membersList = new ArrayList<>();
-
         Worker anna = new Worker("Anna", 19, 178, 62, 1000, 6000);
-        Worker albert = new Worker("Albert", 20, 188, 82, 1000, 5000);
-        Worker johan = new Worker("Johan", 21, 175, 72, 1000, 4000);
+        List<Worker> membersList = new ArrayList<>();
+        Set<Profession> professions = new HashSet<>();
 
-        anna.setGender(Gender.FEMALE);
-        albert.setGender(Gender.MALE);
-        johan.setGender(Gender.MALE);
+        professions.add(Profession.PROGRAMMER);
+        professions.add(Profession.DOCTOR);
+        professions.add(Profession.ADVOCATE);
+        professions.add(Profession.BUILDER);
+        professions.add(Profession.TEACHER);
+        professions.add(Profession.RACER);
 
+        anna.setProfession(professions);
+        anna.setGender(Gender.MALE);
         membersList.add(anna);
-        membersList.add(albert);
-        membersList.add(johan);
-
         pensionFund.setMembersList(membersList);
+
         pensionFund.info();
-        System.out.println("Average pension value: " + (int)pensionFund.calculateMedianPension() + "$");
+        System.out.println();
+        System.out.println("Anna's salary + bonus = " + anna.calculatePension() + "$");
+
+
+
+
+
+
     }
 }

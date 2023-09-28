@@ -5,7 +5,7 @@ public abstract class Person {
     private int age;
     private int growth;
     private double weight;
-    private static Gender gender;
+    private Gender gender;
 
     public Person(String name, int age, int growth, double weight) {
         this.name = name;
@@ -74,7 +74,7 @@ public abstract class Person {
     }
 
     public void setGender(Gender gender) {
-        Person.gender = gender;
+        this.gender = gender;
     }
 
     @Override
